@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Creating a JSON promise</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+		
+	</head>
+	<body>
+		<p>Has to be executed on a server (e.g MAMP, WAMP)</p>
+		
+		<script src="getJSON.js"></script>
+		<script>
+            getJSON("data/ninjas.json")
+                .then((ninjas) => {
+                    assert(ninjas !== null, "Ninjas obtained!");
+                })
+                .catch(e => fail("Shouldn’t be here:" + e));
+        </script>
+	</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Promisifying XMLHttpRequest</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="story"></div>
+    <script>
+        
+        function get(url) {
+          return new Promise(function(resolve, reject) {
+            var req = new XMLHttpRequest();
+            req.open('GET', url);
+
+            req.onload = function() { // this is called even on 404 so check the status
+              if (req.status == 200) {
+                resolve(req.response); // resolve the promise with the response text
+              }
+              else {
+                // else reject w/ the status text which will hopefully be a meaningful err
+                reject(Error(req.statusText));
+              }
+            };
+
+            req.onerror = function() { // Handle network errors
+              reject(Error("Network Error"));
+            };
+
+            req.send(); // Make the request
+          });
+        }
+        
+        function getJSON(url) {
+          return get(url).then(JSON.parse)
+        }
+        
+        
+        ////EX 1
+        /*get('story.json').then(function(response) {
+          console.log("Success!", response);
+        }, function(error) {
+          console.error("Failed!", error);
+        }); */
+        
+        ////EX 2 /////Chaining
+        // Transforming values
+        
+        /* get('story.json').then(function(response) {
+          return JSON.parse(response);
+        }).then(function(response) {
+          console.log("Yey JSON!", response);
+        }) */
+        
+        /*
+        Since JSON.parse() takes a single argument and returns a transformed value, we can make a shortcut:
+
+        get('story.json').then(JSON.parse).then(function(response) {
+          console.log("Yey JSON!", response);
+        })
+        In fact, we could make a getJSON() function really easily:
+
+        function getJSON(url) {
+          return get(url).then(JSON.parse);
+        }
+        getJSON() still returns a promise, one that fetches a url then parses the response as JSON.
+        */
+        
+        ////EX 3
+        // Queuing asynchronous actions
+        /* getJSON('story.json').then(function(story) {
+          return getJSON(story.chapterUrls[0]);
+        }).then(function(chapter1) {
+          console.log("Got chapter 1!", chapter1);
+        }) */
+        
+        ////EX 4
+        // you could even make a shortcut method to get chapters:
+        /* var storyPromise;
+
+        function getChapter(i) {
+          storyPromise = storyPromise || getJSON('story.json');
+
+          return storyPromise.then(function(story) {
+            return getJSON(story.chapterUrls[i]);
+          })
+        }
+
+        // and using it is simple:
+        getChapter(0).then(function(chapter) {
+          console.log(chapter);
+          return getChapter(1);
+        }).then(function(chapter) {
+          console.log(chapter);
+        }) */      
+        //We don't download story.json until getChapter is called, but the next time(s) getChapter is called we reuse the story promise, so story.json is only fetched once. Yay Promises!
+      
+        
+        
+    </script>
+</body>
+</html>

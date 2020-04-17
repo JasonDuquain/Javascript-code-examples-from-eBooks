@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Top 10 Proactive Controls</title>
+	<style>
+    .msg-ball {
+      font-size: 20px;
+      line-height: 200px;
+      text-align: center;
+    }
+    .circle {
+      transition-property: width, height, left, top;
+      transition-duration: 2s;
+      position: fixed;
+      transform: translateX(-50%) translateY(-50%);
+      background-color: red;
+      border-radius: 50%;
+    }
+</style>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+	You can’t click the button while the browser process is blocked.
+    <p>
+    <a id="block" href="#">Block for 3 seconds</a>
+    <p>
+    <button style="cursor: pointer;">This is a button</button>
+    <div id="statusMessage"></div>
+
+	<button class="jsinfo" style="margin-bottom: 200px; margin-top: 30px">Click me -js.info</button>
+
+    <p align="left"><b>Demo (fetch and display images sequentially):</b></p>
+    <div id="doggyplayground" class="demoarea">&nbsp;</div>
+    <p align="left">
+        <button onClick="demo1()">Get images</button>
+    </p>
+
+    <hr>
+
+    <p align="left"><b>Demo (fetch and display images at all once):</b></p>
+    <div id="doggyplayground2" class="demoarea">&nbsp;</div>
+    <p align="left">
+        <button onClick="demo2()">Get images</button>
+    </p>
+
+    <hr>
+
+    <p align="left"><b>Demo (fetch images all at once in parallel, but show them 
+    sequentially):</b></p>
+    <div id="doggyplayground3" class="demoarea">&nbsp;</div>
+    <p align="left">
+        <button onClick="demo3()">Get images</button>
+    </p>
+
+    <script src="js/index.js"></script>
+</body>
+
+</html>

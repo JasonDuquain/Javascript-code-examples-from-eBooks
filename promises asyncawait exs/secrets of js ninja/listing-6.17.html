@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Waiting for a number of promises with Promise.all</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+		<script src="getJSON.js"></script>
+		
+		<!--As you can see, we don’t have to care about the order in which tasks are executed, and whether some of them have finished, while others didn’t. We state that we want to wait for a number of promises by using the built-in Promise.all method. This method takes in an array of promises and creates a new promise that successfully resolves when all passed-in promises resolve, and rejects if even one of the promises fails. The succeed callback receives an array of succeed values, one for each of the passed-in promises, in order.-->
+		
+		<script>
+            
+            
+            
+            
+            
+            
+			/* COMPLETE - compare this code to the CB-parallel.html code
+            
+            Promise.all([getJSON("data/ninjas.json"),
+			             getJSON("data/mapInfo.json"),
+			             getJSON("data/plan.json")])
+                .then(results => {
+			    const ninjas = results[0], mapInfo = results[1], plan = results[2];
+
+			    assert(ninjas !== undefined && mapInfo !== undefined && plan !== undefined, "The plan is ready to be set in motion!");
+			    })
+                .catch(error => fail("A problem in carrying out our plan!"));*/
+            
+            
+            
+            
+		</script>
+	</head>
+	<body>
+		<p>Has to be executed on a server (e.g MAMP, WAMP)</p>
+	</body>
+</html>
